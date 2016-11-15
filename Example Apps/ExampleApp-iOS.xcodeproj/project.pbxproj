@@ -22,6 +22,7 @@
 		2CEB3EC01602563600548120 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEB3EBF1602563600548120 /* UIKit.framework */; };
 		2CEB3EC21602563600548120 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEB3EC11602563600548120 /* Foundation.framework */; };
 		2CEB3EC41602563600548120 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEB3EC31602563600548120 /* CoreGraphics.framework */; };
+		6F5FD37C1DDAEA9300D09960 /* ExampleApp_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F5FD37B1DDAEA9300D09960 /* ExampleApp_2.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		2CEB3EBF1602563600548120 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2CEB3EC11602563600548120 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2CEB3EC31602563600548120 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6F5FD37B1DDAEA9300D09960 /* ExampleApp_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ExampleApp_2.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				2CA0465B1711AC8D006DEE8B /* ExampleApp.html */,
+				6F5FD37B1DDAEA9300D09960 /* ExampleApp_2.html */,
 				2CA045BC17117439006DEE8B /* ExampleAppDelegate.h */,
 				2CA045BD17117439006DEE8B /* ExampleAppDelegate.m */,
 				2C45CA2A1884AD520002A4E2 /* ExampleUIWebViewController.h */,
@@ -192,6 +195,7 @@
 			files = (
 				2CA045BF17117439006DEE8B /* InfoPlist.strings in Resources */,
 				2CA0465C1711AC8E006DEE8B /* ExampleApp.html in Resources */,
+				6F5FD37C1DDAEA9300D09960 /* ExampleApp_2.html in Resources */,
 				2CAB869B1727684300BD9ED1 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

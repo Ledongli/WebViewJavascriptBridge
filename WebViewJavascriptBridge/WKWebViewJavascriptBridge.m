@@ -97,6 +97,16 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (webView != _webView) { return; }
+
+    _base.numRequestsLoading--;
+    
+    if (_base.numRequestsLoading == 0) {
+        [webView evaluateJavaScript:[_base webViewJavascriptCheckCommand] completionHandler:^(NSString *result, NSError *error) {
+            if (![result boolValue]) {
+                [_base injectJavascriptFile];
+            }
+        }];
+    }
     
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
     if (strongDelegate && [strongDelegate respondsToSelector:@selector(webView:didFinishNavigation:)]) {
@@ -141,6 +151,8 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     if (webView != _webView) { return; }
     
+    _base.numRequestsLoading++;
+    
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
     if (strongDelegate && [strongDelegate respondsToSelector:@selector(webView:didStartProvisionalNavigation:)]) {
         [strongDelegate webView:webView didStartProvisionalNavigation:navigation];
@@ -152,6 +164,8 @@ didFailNavigation:(WKNavigation *)navigation
       withError:(NSError *)error {
     if (webView != _webView) { return; }
     
+    _base.numRequestsLoading--;
+    
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
     if (strongDelegate && [strongDelegate respondsToSelector:@selector(webView:didFailNavigation:withError:)]) {
         [strongDelegate webView:webView didFailNavigation:navigation withError:error];
@@ -160,6 +174,8 @@ didFailNavigation:(WKNavigation *)navigation
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     if (webView != _webView) { return; }
+    
+    _base.numRequestsLoading--;
     
     __strong typeof(_webViewDelegate) strongDelegate = _webViewDelegate;
     if (strongDelegate && [strongDelegate respondsToSelector:@selector(webView:didFailProvisionalNavigation:withError:)]) {

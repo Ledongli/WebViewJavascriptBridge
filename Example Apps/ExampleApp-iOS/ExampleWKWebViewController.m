@@ -31,7 +31,10 @@
         NSLog(@"testObjcCallback called: %@", data);
         responseCallback(@"Response from testObjcCallback");
     }];
-    
+    [_bridge registerHandler:@"getAppInfo" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"get App Info called:%@", data);
+        responseCallback(@{@"appName": @"Example iOS"});
+    }];
     [_bridge callHandler:@"testJavascriptHandler" data:@{ @"foo":@"before ready" }];
     
     [self renderButtons:webView];
@@ -72,9 +75,13 @@
 }
 
 - (void)loadExamplePage:(WKWebView*)webView {
-    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"ExampleApp" ofType:@"html"];
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"ExampleApp_2" ofType:@"html"];
     NSString* appHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
     NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
     [webView loadHTMLString:appHtml baseURL:baseURL];
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    decisionHandler(WKNavigationResponsePolicyAllow);
 }
 @end
