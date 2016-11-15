@@ -26,6 +26,7 @@ NSString * WebViewJavascriptBridge_js() {
 		}
 	}
 	window.WebViewJavascriptBridge = {
+        init: init,
 		registerHandler: registerHandler,
 		callHandler: callHandler,
 		disableJavscriptAlertBoxSafetyTimeout: disableJavscriptAlertBoxSafetyTimeout,
@@ -47,7 +48,15 @@ NSString * WebViewJavascriptBridge_js() {
 	function registerHandler(handlerName, handler) {
 		messageHandlers[handlerName] = handler;
 	}
-	
+    function init() {
+        window.WVJBCallbacks = [];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+    }
+        
 	function callHandler(handlerName, data, responseCallback) {
 		if (arguments.length == 2 && typeof data == 'function') {
 			responseCallback = data;
@@ -120,7 +129,11 @@ NSString * WebViewJavascriptBridge_js() {
 	messagingIframe.style.display = 'none';
 	messagingIframe.src = CUSTOM_PROTOCOL_SCHEME + '://' + QUEUE_HAS_MESSAGE;
 	document.documentElement.appendChild(messagingIframe);
-
+    var readyEvent = document.createEvent('Events');
+    readyEvent.initEvent('WebViewJavascriptBridgeReady');
+    readyEvent.bridge = WebViewJavascriptBridge;
+    document.dispatchEvent(readyEvent);
+    
 	registerHandler("_disableJavascriptAlertBoxSafetyTimeout", disableJavscriptAlertBoxSafetyTimeout);
 	
 	setTimeout(_callWVJBCallbacks, 0);
