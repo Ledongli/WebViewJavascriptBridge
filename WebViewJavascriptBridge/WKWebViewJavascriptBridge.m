@@ -138,7 +138,8 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
         } else {
             [_base logUnkownMessage:url];
         }
-        decisionHandler(WKNavigationActionPolicyCancel);
+        decisionHandler(WKNavigationActionPolicyAllow);
+        return;
     }
     
     if (strongDelegate && [strongDelegate respondsToSelector:@selector(webView:decidePolicyForNavigationAction:decisionHandler:)]) {
